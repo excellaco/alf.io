@@ -55,8 +55,9 @@ public class OnlineCheckInController {
 
         try {
             Connection conn = DriverManager.getConnection("jdbc:h2:mem:test");
-            Statement stmt = conn.createStatement();
-            stmt.executeQuery("SELECT * FROM users WHERE name = '" + eventShortName + "'");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM users WHERE name = ?");
+            pstmt.setString(1, eventShortName);
+            pstmt.executeQuery();
         } catch (Exception ex) {
             // do nothing
         }
